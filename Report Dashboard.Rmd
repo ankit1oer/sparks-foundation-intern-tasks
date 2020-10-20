@@ -1,0 +1,65 @@
+---
+title: "Profit_Report"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+```
+# page 1
+## Column {data-width=300}
+-----------------------------------------------------------------------
+
+### Chart A
+```{r}
+ library(dplyr)
+ training_set=training_set %>% group_by(Category) %>% mutate(ncategory=n()/nrow(training_set))
+ ggplot(training_set,aes(y=training_set$Profit,x=training_set$Category, fill=training_set$Category))+geom_violin(aes(weight=ncategory ))+ggtitle('profit vs categories')+xlab('categories') +ylab('Profit')
+
+```
+
+
+-----------------------------------------------------------------------
+### Chart B
+
+```{r}
+
+ #profit vs quantity
+ ggplot(training_set,aes(y= Profit,x=Quantity))+geom_jitter(aes(col=Quantity)) +ggtitle('profit vs quantity')+xlab('Quantity') +ylab('Profit')
+ 
+
+```
+
+
+
+## Column {data-width=200}
+-----------------------------------------------------------------------
+### Chart C
+
+```{r}
+#profil vs discount 
+ ggplot(training_set,aes(y= Profit,x=Discount))+geom_jitter(aes(col=Discount))+ggtitle('profit vs Discount')+xlab('Discount') +ylab('Profit')
+
+```
+
+## Column {data-width=500}
+-----------------------------------------------------------------------
+### Chart D
+
+```{r}
+#Profit vs sales
+ ggplot(training_set,aes(y= Profit,x=Sales))+geom_jitter(aes(col=Sales))+ggtitle('profit vs Sales')+xlab('Sales') +ylab('Profit')
+ 
+```
+
+-----------------------------------------------------------------------
+### Chart E
+
+```{r}
+ # profit vs sub.category
+ ggplot(training_set,aes(y=Profit,x=Sub.Category))+geom_jitter(aes(col= Sub.Category))+ggtitle('profit vs Sub_categories')+xlab('Sub_categories') +ylab('Profit')
+
+```
